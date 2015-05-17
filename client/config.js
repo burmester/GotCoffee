@@ -1,6 +1,7 @@
 require.config({
     paths: {
-        'jquery': 'scripts/vendor/jquery',
-        'less': 'scripts/vendor/less'
+        'jquery': 'vendor/jquery/dist/jquery',
+        'less': 'vendor/less/dist/less',
+        'underscore': 'vendor/underscore/underscore'
     }
 });
