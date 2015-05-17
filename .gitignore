@@ -17,6 +17,7 @@ logs
 results
 
 node_modules
+bower_componets
 npm-debug.log
 
 client/scripts/vendor
