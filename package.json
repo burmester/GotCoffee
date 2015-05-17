@@ -24,6 +24,7 @@
   "homepage": "https://github.com/burmester/gotcoffee",
   "dependencies": {
     "connect": "^3.3.5",
-    "express": "^4.12.3"
+    "express": "^4.12.3",
+    "less": "^2.5.0"
   }
 }
