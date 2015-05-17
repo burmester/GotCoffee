@@ -1,33 +1,28 @@
-var http = require('http'),
+var require = require('requirejs'),
+    http = require('http'),
     express = require('express'),
+    database = require('../server/database'),
     _ = require('underscore');
 
 var app = express();
-
-var weightAtTime = [
-    {
-        "time": "2015-05-17T18:21:40.187Z",
-        "weight": 1500
-    },
-    {
-        "time": "2015-05-17T18:22:40.187Z",
-        "weight": 1400
-    }
-];
 
 app.use('/vendor', express.static('../bower_components'));
 app.use(express.static('../client/'));
 
 app.get('/currentWeight', function (req, res) {
-    res.status(200).send({'temp': getRandomInt(0, 1500)});
+    database.create(getRandomInt(0, 1500), function (error, weight) {
+        res.status(200).send(weight);
+    });
 });
 
-app.get('/weights/:time', function (req, res) {
-    res.status(200).send(_.findWhere(weightAtTime, {"time": req.params.time}));
+app.get('/weights/:date', function (req, res) {
+    database.find({"date": new Date(req.params.date)}, function (error, weights) {
+        res.status(200).send(weights);
+    });
 });
 
 app.get('/weights', function (req, res) {
-    res.status(200).send(weightAtTime);
+    res.status(200).send("soon");
 });
 
 app.get('*', function (req, res) {
