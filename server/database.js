@@ -9,7 +9,7 @@ define(function (require) {
     }));
 
     return {
-        create: function (weight, callback) {
+        create: function (callback, weight) {
             if (_.isFunction(callback)) {
                 Weight.create({weight: weight, date: new Date()}, callback);
             } else {
