@@ -30,7 +30,9 @@ app.get('/weights/:date', function (req, res) {
 });
 
 app.get('/weights', function (req, res) {
-    res.status(200).send("soon");
+    database.find({}, function (error, weights) {
+        res.status(200).send(weights);
+    });
 });
 
 app.get('*', function (req, res) {
@@ -52,5 +54,3 @@ function getRandomInt(min, max) {
 
 app.listen(3000);
 console.log('App Server is listening on port 3000');
-
-console.log("test");
