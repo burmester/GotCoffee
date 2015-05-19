@@ -6,7 +6,6 @@ define(function (require) {
         chart = require('chart');
 
     var ctx = document.getElementById("myChart").getContext("2d");
-
     Chart.defaults.global = {
         // Boolean - Whether to animate the chart
         animation: true,
@@ -70,7 +69,7 @@ define(function (require) {
         scaleFontColor: "#666",
 
         // Boolean - whether or not the chart should be responsive and resize when the browser does.
-        responsive: false,
+        responsive: true,
 
         // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
         maintainAspectRatio: true,
@@ -142,31 +141,26 @@ define(function (require) {
     }
 
     $(document).ready(function () {
-
         url = document.URL + 'weights';
         $.getJSON(url, function (data) {
             var dates = [],
                 weights = [];
-
-            data = _.sortBy(data, "date")
-
+            data = _.sortBy(data, "date");
             _.each(data, function (point) {
                 date = new Date(point.date).toLocaleString("sv-SE", {
                     hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit"
+                    minute: "2-digit"
                 });
                 if (date != "Invalid Date") {
                     dates.push(date);
                     weights.push(point.weight);
                 }
-            })
-
+            });
             var data = {
                     labels: dates,
                     datasets: [
                         {
-                            label: "My First dataset",
+                            label: "Coffee drinking history",
                             fillColor: "rgba(220,220,220,0.2)",
                             strokeColor: "rgba(220,220,220,1)",
                             pointColor: "rgba(220,220,220,1)",
@@ -178,56 +172,40 @@ define(function (require) {
                     ]
                 },
                 options = {
-
                     ///Boolean - Whether grid lines are shown across the chart
                     scaleShowGridLines: false,
-
                     //String - Colour of the grid lines
                     scaleGridLineColor: "rgba(0,0,0,.05)",
-
                     //Number - Width of the grid lines
                     scaleGridLineWidth: 1,
-
                     //Boolean - Whether to show horizontal lines (except X axis)
                     scaleShowHorizontalLines: false,
-
                     //Boolean - Whether to show vertical lines (except Y axis)
                     scaleShowVerticalLines: false,
-
                     //Boolean - Whether the line is curved between points
                     bezierCurve: true,
-
                     //Number - Tension of the bezier curve between points
                     bezierCurveTension: 0.4,
-
                     //Boolean - Whether to show a dot for each point
                     pointDot: true,
-
                     //Number - Radius of each point dot in pixels
                     pointDotRadius: 4,
-
                     //Number - Pixel width of point dot stroke
                     pointDotStrokeWidth: 1,
-
                     //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
                     pointHitDetectionRadius: 20,
-
                     //Boolean - Whether to show a stroke for datasets
                     datasetStroke: true,
-
                     //Number - Pixel width of dataset stroke
                     datasetStrokeWidth: 2,
-
                     //Boolean - Whether to fill the dataset with a colour
                     datasetFill: true
-
                     //String - A legend template
                     //legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
                 };
-            ctx.canvas.width = window.innerWidth-100;
-            ctx.canvas.height = window.innerHeight-300
-            var myLineChart = new Chart(ctx).Line(data, options);
+            ctx.canvas.width = window.innerWidth - 200;
+            var historyChart = new Chart(ctx).Line(data, options);
         });
     });
 });

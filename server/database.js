@@ -1,5 +1,6 @@
 define(function (require) {
-    var mongoose = require('mongoose');
+    var mongoose = require('mongoose'),
+        _ = require('underscore');
     mongoose.connect('mongodb://localhost/gotcoffee');
 
     var Weight = mongoose.model('Weight', new mongoose.Schema({
@@ -9,10 +10,13 @@ define(function (require) {
 
     return {
         create: function (weight, callback) {
-            Weight.create({weight: weight, date: new Date()}, callback);
+            if (_.isFunction(callback)) {
+                Weight.create({weight: weight, date: new Date()}, callback);
+            } else {
+                Weight.create({weight: callback, date: new Date()});
+            }
         },
         find: function (conditions, callback) {
-            console.log(conditions);
             Weight.find(conditions, callback);
         },
         remove: function (conditions, callback) {

@@ -1,9 +1,9 @@
 require.config({
     paths: {
-        'jquery': 'vendor/jquery/dist/jquery',
-        'less': 'vendor/less/dist/less',
-        'underscore': 'vendor/underscore/underscore',
-        'angular': 'vendor/angularjs/angular',
-        'chart': 'vendor/Chart.js/Chart'
+        'jquery': '../bower_components/jquery/dist/jquery',
+        'less': '../bower_components/less/dist/less',
+        'underscore': '../bower_components/underscore/underscore',
+        'angular': '../bower_components/angularjs/angular',
+        'chart': '../bower_components/Chart.js/Chart'
     }
 });
